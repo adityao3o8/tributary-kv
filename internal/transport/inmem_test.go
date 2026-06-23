@@ -17,6 +17,15 @@ func (p *pinger) Ping(_ context.Context, req *quorumpb.PingRequest) (*quorumpb.P
 	return &quorumpb.PingResponse{From: p.id, Nonce: req.GetNonce()}, nil
 }
 
+// The remaining PeerServer methods are unused by these transport tests.
+func (p *pinger) RequestVote(context.Context, *quorumpb.RequestVoteRequest) (*quorumpb.RequestVoteResponse, error) {
+	return &quorumpb.RequestVoteResponse{}, nil
+}
+
+func (p *pinger) AppendEntries(context.Context, *quorumpb.AppendEntriesRequest) (*quorumpb.AppendEntriesResponse, error) {
+	return &quorumpb.AppendEntriesResponse{}, nil
+}
+
 func TestInmemPingDelivers(t *testing.T) {
 	net := NewNetwork()
 	net.Join("a", &pinger{id: "a"})

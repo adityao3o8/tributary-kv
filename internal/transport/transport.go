@@ -25,14 +25,18 @@ var (
 )
 
 // PeerServer is the inbound side: a node implements this to handle RPCs from
-// other nodes. The store/server and (later) the Raft node satisfy it.
+// other nodes. The Raft node satisfies it.
 type PeerServer interface {
 	Ping(context.Context, *quorumpb.PingRequest) (*quorumpb.PingResponse, error)
+	RequestVote(context.Context, *quorumpb.RequestVoteRequest) (*quorumpb.RequestVoteResponse, error)
+	AppendEntries(context.Context, *quorumpb.AppendEntriesRequest) (*quorumpb.AppendEntriesResponse, error)
 }
 
 // Peer is the outbound side: a handle used to send RPCs to one remote node.
 type Peer interface {
 	Ping(context.Context, *quorumpb.PingRequest) (*quorumpb.PingResponse, error)
+	RequestVote(context.Context, *quorumpb.RequestVoteRequest) (*quorumpb.RequestVoteResponse, error)
+	AppendEntries(context.Context, *quorumpb.AppendEntriesRequest) (*quorumpb.AppendEntriesResponse, error)
 }
 
 // Transport is a node's view of the network: it hands out Peer handles to

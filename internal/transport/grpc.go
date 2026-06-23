@@ -72,3 +72,11 @@ type grpcPeer struct {
 func (p *grpcPeer) Ping(ctx context.Context, req *quorumpb.PingRequest) (*quorumpb.PingResponse, error) {
 	return p.client.Ping(ctx, req)
 }
+
+func (p *grpcPeer) RequestVote(ctx context.Context, req *quorumpb.RequestVoteRequest) (*quorumpb.RequestVoteResponse, error) {
+	return p.client.RequestVote(ctx, req)
+}
+
+func (p *grpcPeer) AppendEntries(ctx context.Context, req *quorumpb.AppendEntriesRequest) (*quorumpb.AppendEntriesResponse, error) {
+	return p.client.AppendEntries(ctx, req)
+}

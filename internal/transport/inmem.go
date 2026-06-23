@@ -139,3 +139,19 @@ func (p *inmemPeer) Ping(ctx context.Context, req *quorumpb.PingRequest) (*quoru
 	}
 	return h.Ping(ctx, req)
 }
+
+func (p *inmemPeer) RequestVote(ctx context.Context, req *quorumpb.RequestVoteRequest) (*quorumpb.RequestVoteResponse, error) {
+	h, err := p.net.deliver(ctx, p.from, p.to)
+	if err != nil {
+		return nil, err
+	}
+	return h.RequestVote(ctx, req)
+}
+
+func (p *inmemPeer) AppendEntries(ctx context.Context, req *quorumpb.AppendEntriesRequest) (*quorumpb.AppendEntriesResponse, error) {
+	h, err := p.net.deliver(ctx, p.from, p.to)
+	if err != nil {
+		return nil, err
+	}
+	return h.AppendEntries(ctx, req)
+}
